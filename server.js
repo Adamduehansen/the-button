@@ -15,8 +15,21 @@ express.get("/build.js", (req, res) => {
 });
 
 // Socket
-const onConnect = function() {
+
+/**
+ * Handles the "disconnect" event.
+ */
+const onDisconnect = function() {
+  console.log("A user disconnected!");
+};
+
+/**
+ * Handles the "connection" event.
+* @param {any} socket 
+ */
+const onConnect = function(socket) {
   console.log("A user connected!");
+  socket.on("disconnect", onDisconnect);
 };
 
 io.on("connection", onConnect);
