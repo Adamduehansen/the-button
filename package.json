@@ -4,6 +4,7 @@
   "author": "adamduehan@gmail.com",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --mode development --config ./config/webpack.config.js",
     "build": "webpack --mode development --config ./config/webpack.config.js",
     "start": "npm run build && node server.js"
   },
