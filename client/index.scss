@@ -1,15 +1,67 @@
+// Imports
+@import "reset.scss";
+
+// Variables
+$vertical-space: 30px;
+$font-family: Verdana, Geneva, Tahoma, sans-serif;
+$transition-time: 200ms;
+
 main {
   display: flex;
-  align-content: center;
+  flex-direction: column;
   justify-content: center;
-  height: 100%;
+  text-align: center;
+  height: 100vh;
   width: 100%;
+  font-size: 1.5em;
+  font-family: $font-family;
+  line-height: 2em;
+}
+
+.row {
+  display: block;
+  width: 100%;
+  margin-bottom: $vertical-space;
+}
+
+.name-input {
+  font-family: $font-family;
+  border: none;
+  border-bottom: 1px solid grey;
+  text-align: center;
+  width: 300px;
+  font-size: 1em;
+
+  &:focus, &:active {
+    outline: none;
+  }
 }
 
 .the-button {
-  padding: 20px;
-  background: greenyellow;
+  padding: 20px 60px;
+  background: green;
   border-radius: 5px;
   cursor: pointer;
   color: white;
+  font-size: 1.5em;
+  box-shadow: 0 9px darkgrey;
+  -webkit-transition: background-color $transition-time linear;
+  -ms-transition: background-color $transition-time linear;
+  transition: background-color $transition-time linear;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 5px grey;
+    transform: translateY(4px);
+  }
+
+  &:hover {
+    background: darkgreen;
+    -webkit-transition: background-color $transition-time linear;
+    -ms-transition: background-color $transition-time linear;
+    transition: background-color $transition-time linear;
+  }
 }
