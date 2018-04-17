@@ -24,7 +24,7 @@ main {
   margin-bottom: $vertical-space;
 }
 
-.name-input {
+#name-input {
   font-family: $font-family;
   border: none;
   border-bottom: 1px solid grey;
@@ -37,7 +37,7 @@ main {
   }
 }
 
-.the-button {
+#the-button {
   padding: 20px 60px;
   background: green;
   border-radius: 5px;

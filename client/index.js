@@ -2,8 +2,8 @@ import io from "socket.io-client";
 
 require("./index.scss");
 
-const nameInput = document.querySelector(".name-input");
-const theButton = document.querySelector(".the-button");
+const nameInput = document.getElementById("name-input");
+const theButton = document.getElementById("the-button");
 
 // Add an event listener on the button.
 theButton.addEventListener("click", () => {
