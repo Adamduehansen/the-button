@@ -4,18 +4,32 @@ require("./index.scss");
 
 const nameInput = document.getElementById("name-input");
 const theButton = document.getElementById("the-button");
-
-// Add an event listener on the button.
-theButton.addEventListener("click", () => {
-  nameInput.focus(); // Set focus back to name input on click.
-});
+const numberOfButtonClicksSpan = document.getElementById("number-of-button-clicks");
+const whoClickedTheButtonSpan = document.getElementById("who-pressed-the-button");
 
 const socket = io("http://localhost:3000/");
 
-socket.on("connection", () => {
-  console.log("Connected!");
+// Add an event listener on the button.
+theButton.addEventListener("click", () => {
+  whoClickedTheButtonSpan.innerText = "You";
+  socket.emit("click", { 
+    name: nameInput.value
+  });
 });
 
+
+// Handles the "connected" event.
+socket.on("connected", data => {
+  numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
+});
+
+socket.on("clicked", data => {
+  whoClickedTheButtonSpan.innerText = data.name 
+    ? data.name 
+    : "Someone";
+});
+
+// Handles the "connect_error" event.
 socket.on("connect_error", () => {
-  console.log("Ouch!");
+  console.error("Connection error!");
 });
