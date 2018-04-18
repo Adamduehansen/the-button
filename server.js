@@ -33,7 +33,8 @@ const onConnect = function(socket) {
   socket.on("click", data => {
     numberOfButtonClicks += 1;
     socket.broadcast.emit("clicked", { 
-      name: data.name
+      name: data.name,
+      numberOfButtonClicks
     });
   });
 };

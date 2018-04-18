@@ -12,6 +12,7 @@ const socket = io("http://localhost:3000/");
 // Add an event listener on the button.
 theButton.addEventListener("click", () => {
   whoClickedTheButtonSpan.innerText = "You";
+  numberOfButtonClicksSpan.innerText = parseInt(numberOfButtonClicksSpan.innerText) + 1;
   socket.emit("click", { 
     name: nameInput.value
   });
@@ -22,10 +23,14 @@ socket.on("connected", data => {
   numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
 });
 
+// Handles the "clicked" event.
 socket.on("clicked", data => {
   whoClickedTheButtonSpan.innerText = data.name 
     ? data.name 
     : "Someone";
+  numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
+
+  // Simulate button click.
   theButton.classList.add("pressed");
   const releaseButtonWait = setInterval(() => {
     theButton.classList.remove("pressed");
