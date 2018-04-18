@@ -17,7 +17,6 @@ theButton.addEventListener("click", () => {
   });
 });
 
-
 // Handles the "connected" event.
 socket.on("connected", data => {
   numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
@@ -27,6 +26,11 @@ socket.on("clicked", data => {
   whoClickedTheButtonSpan.innerText = data.name 
     ? data.name 
     : "Someone";
+  theButton.classList.add("pressed");
+  const releaseButtonWait = setInterval(() => {
+    theButton.classList.remove("pressed");
+    clearInterval(releaseButtonWait);
+  }, 200);
 });
 
 // Handles the "connect_error" event.

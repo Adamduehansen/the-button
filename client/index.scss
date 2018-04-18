@@ -53,7 +53,7 @@ main {
     outline: none;
   }
 
-  &:active {
+  &:active, &.pressed {
     box-shadow: 0 5px grey;
     transform: translateY(4px);
   }
