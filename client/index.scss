@@ -64,4 +64,29 @@ main {
     -ms-transition: background-color $transition-time linear;
     transition: background-color $transition-time linear;
   }
+
+  &:disabled {
+    background: gray;
+  }
+}
+
+#connection-refused {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  opacity: 1;
+  transition: opacity $transition-time linear;
+
+  &.hidden {
+    opacity: 0;
+    transition: visibility 0s $transition-time, opacity $transition-time linear;
+  }
+
+  p {
+    width: 500px;
+    margin: 0 auto;
+    background: red;
+    border-radius: 0px 0px 10px 10px;
+    color: white;
+  }
 }

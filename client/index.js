@@ -6,6 +6,7 @@ const nameInput = document.getElementById("name-input");
 const theButton = document.getElementById("the-button");
 const numberOfButtonClicksSpan = document.getElementById("number-of-button-clicks");
 const whoClickedTheButtonSpan = document.getElementById("who-pressed-the-button");
+const connectionRefused = document.getElementById("connection-refused");
 
 const socket = io("http://localhost:3000/");
 
@@ -40,5 +41,11 @@ socket.on("clicked", data => {
 
 // Handles the "connect_error" event.
 socket.on("connect_error", () => {
-  console.error("Connection error!");
+  connectionRefused.classList.remove("hidden");
+  theButton.setAttribute("disabled", "disabled");
+});
+
+socket.on("reconnect", () => {
+  connectionRefused.classList.add("hidden");
+  theButton.removeAttribute("disabled");
 });
