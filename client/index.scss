@@ -88,5 +88,10 @@ main {
     background: red;
     border-radius: 0px 0px 10px 10px;
     color: white;
+
+    @media (max-width: 576px) {
+      width: initial;
+      border-radius: 0;
+    }
   }
 }

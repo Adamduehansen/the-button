@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>The Button</title>
 </head>
 <body>
   <main>
     <div class="row">
-      <p>Wanna let everyone know who pressed the button?</p>
       <input type="text" id="name-input" placeholder="Enter a name..." autofocus />
     </div>
     <div class="row">
@@ -17,7 +16,7 @@
     </div>
     <div class="row">
       <p><span id="who-pressed-the-button">Nobody</span> pressed the button</p>
-      <p>The button has been pressed <span id="number-of-button-clicks">x</span> times</p>
+      <p><span id="number-of-button-clicks">0</span> clicks!</p>
     </div>
     <div id="connection-refused" class="hidden">
       <p>Connection failed!</p>
