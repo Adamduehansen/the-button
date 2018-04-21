@@ -8,7 +8,7 @@ const numberOfButtonClicksSpan = document.getElementById("number-of-button-click
 const whoClickedTheButtonSpan = document.getElementById("who-pressed-the-button");
 const connectionRefused = document.getElementById("connection-refused");
 
-const socket = io("http://localhost:3000/");
+const socket = io();
 
 // Add an event listener on the button.
 theButton.addEventListener("click", () => {
