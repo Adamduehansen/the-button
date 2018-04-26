@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "adamduehan@gmail.com",
   "scripts": {
-    "dev": "concurrently --names \"Webpack-dev-server,express\" \"webpack-dev-server --mode development --config ./config/webpack.dev.js\" \"node server.js\" ",
+    "dev": "concurrently --names \"Webpack-dev-server,express\" \"webpack-dev-server --mode development --config ./config/webpack.dev.js\" \"tsc server.ts && node server.js\" ",
     "build": "webpack --mode development --config ./config/webpack.dev.js",
     "prod": "webpack --mode development --config ./config/webpack.prod.js",
     "start": "npm run prod && tsc server.ts && node server.js"

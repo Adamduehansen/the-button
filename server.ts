@@ -5,7 +5,7 @@ import * as io from "socket.io";
 
 interface Click {
   name: string;
-  dateTime: Date;
+  timeStamp: Date;
 }
 
 class GameServer {
@@ -44,6 +44,7 @@ class GameServer {
       socket.emit("connected", this.state);
       socket.on("click", (data: Click) => {
         this.state = [...this.state, data];
+        socket.broadcast.emit("clicked", this.state);
       });
     });
   }

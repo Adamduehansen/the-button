@@ -8,7 +8,7 @@ const numberOfButtonClicksSpan = document.getElementById("number-of-button-click
 const whoClickedTheButtonSpan = document.getElementById("who-pressed-the-button");
 const connectionRefused = document.getElementById("connection-refused");
 
-const socket = new io();
+const socket = new io("http://localhost:3000/");
 
 // Add an event listener on the button.
 theButton.addEventListener("click", () => {
@@ -21,16 +21,16 @@ theButton.addEventListener("click", () => {
 });
 
 // Handles the "connected" event.
-socket.on("connected", data => {
-  numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
+socket.on("connected", (data: any[]) => {
+  numberOfButtonClicksSpan.innerText = data.length.toString();
+  if (data.length === 0) return;
+  whoClickedTheButtonSpan.innerText = data[data.length - 1].name;
 });
 
 // Handles the "clicked" event.
-socket.on("clicked", data => {
-  whoClickedTheButtonSpan.innerText = data.name 
-    ? data.name 
-    : "Someone";
-  numberOfButtonClicksSpan.innerText = data.numberOfButtonClicks;
+socket.on("clicked", (data: any[]) => {
+  whoClickedTheButtonSpan.innerText = data[data.length - 1].name;
+  numberOfButtonClicksSpan.innerText = data.length.toString();
 
   // Simulate button click.
   theButton.classList.add("pressed");
