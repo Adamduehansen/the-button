@@ -41,11 +41,9 @@ class GameServer {
   setupSocketIo() {
     this.socket = io(this.server);
     this.socket.on("connection", (socket: io.Socket) => {
-      console.log("A user connected!");
       socket.emit("connected", this.state);
       socket.on("click", (data: Click) => {
         this.state = [...this.state, data];
-        console.log("State is", this.state)
       });
     });
   }

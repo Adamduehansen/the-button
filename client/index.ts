@@ -1,21 +1,22 @@
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 
 require("./index.scss");
 
-const nameInput = document.getElementById("name-input");
+const nameInput = <HTMLInputElement> document.getElementById("name-input");
 const theButton = document.getElementById("the-button");
 const numberOfButtonClicksSpan = document.getElementById("number-of-button-clicks");
 const whoClickedTheButtonSpan = document.getElementById("who-pressed-the-button");
 const connectionRefused = document.getElementById("connection-refused");
 
-const socket = io();
+const socket = new io();
 
 // Add an event listener on the button.
 theButton.addEventListener("click", () => {
   whoClickedTheButtonSpan.innerText = "You";
-  numberOfButtonClicksSpan.innerText = parseInt(numberOfButtonClicksSpan.innerText) + 1;
+  numberOfButtonClicksSpan.innerText = (parseInt(numberOfButtonClicksSpan.innerText) + 1).toString();
   socket.emit("click", { 
-    name: nameInput.value
+    name: nameInput.value,
+    date: new Date(Date.now())
   });
 });
 
