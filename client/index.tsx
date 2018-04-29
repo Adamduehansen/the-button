@@ -55,10 +55,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
       });
     });
     this.socket.on("connect_error", () => {
-      this.setState({
-        isConnected: false
-      })
-      // TODO: Disable elements.
+      this.setState({ isConnected: false })
     })
   }
 
@@ -111,7 +108,8 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
               onChange={ this.onNameInputChange } />
           </div>
           <div className="row">
-            <button id="the-button" 
+            <button id="the-button"
+              disabled={ !this.state.isConnected }
               ref={ r => this.theButton = r}
             >Press me!</button>
           </div>
