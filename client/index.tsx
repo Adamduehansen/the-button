@@ -84,16 +84,24 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
 
   onFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const click = {
-      name: this.state.name,
+    const click: Click = {
+      name: "",
       timeStamp: new Date(Date.now())
     }
-    this.socket.emit("click", click);
+
+    this.socket.emit("click", {
+      ...click, 
+      name: this.state.name
+    });
+
     this.setState(previousState => {
       return {
-        clicks: [...previousState.clicks, click]
+        clicks: [...previousState.clicks, {
+          ...click,
+          name: "You"
+        }]
       }
-    })
+    });
   }
 
   render() {
