@@ -4,93 +4,93 @@ import * as ReactDOM from "react-dom";
 
 require("./index.scss");
 
-interface Click {
+interface IClick {
   name: string;
   timeStamp: Date;
 }
-interface ApplicationProps {}
-interface ApplicationState {
+interface IApplicationProps {}
+interface IApplicationState {
   isConnected: boolean;
   name: string;
-  clicks: Click[];
+  clicks: IClick[];
 }
 
 /**
  * Application component.
  */
-class Application extends React.Component<ApplicationProps, ApplicationState> {
+class Application extends React.Component<IApplicationProps, IApplicationState> {
   private socket: any;
   private theButton: HTMLButtonElement;
 
-  constructor(props: any) {
+  constructor(props: IApplicationProps) {
     super(props);
     this.onNameInputChange = this.onNameInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.state = {
+      clicks: [],
       isConnected: false,
-      name: "",
-      clicks: []
-    }
+      name: ""
+    };
   }
 
   /**
    * Initializes socket and socket events.
    */
-  componentDidMount() {
+  public componentDidMount() {
     this.socket = io("http://localhost:3000/");
-    this.socket.on("connected", (data: Click[]) => {
-      this.setState({ 
-        isConnected: true,
-        clicks: data
+    this.socket.on("connected", (data: IClick[]) => {
+      this.setState({
+        clicks: data,
+        isConnected: true
       });
     });
-    this.socket.on("clicked", (data: Click[]) => {
-      this.setState({ 
-        clicks: data 
+    this.socket.on("clicked", (data: IClick[]) => {
+      this.setState({
+        clicks: data
       }, () => {
         this.theButton.classList.add("pressed");
         setTimeout(() => {
           this.theButton.classList.remove("pressed");
-        }, 200)
+        }, 200);
       });
     });
     this.socket.on("connect_error", () => {
-      this.setState({ isConnected: false })
-    })
+      this.setState({ isConnected: false });
+    });
   }
 
   /**
    * Renders the "clicked by" element.
    */
-  renderClickedBy() {
+  public renderClickedBy() {
     let name = "Nobody";
     if (this.state.clicks.length > 0) {
-      name = this.state.clicks[this.state.clicks.length -1].name
+      name = this.state.clicks[this.state.clicks.length - 1].name;
     }
-    
-    return <p>{`${name} pressed the button`}</p>
+
+    return <p>{`${name} pressed the button`}</p>;
   }
 
   /**
    * Renders the "number of clicks" element.
    */
-  renderClicks() {
-    return <p>{ `${this.state.clicks.length} clicks!` }</p>
+  public renderClicks() {
+    return <p>{ `${this.state.clicks.length} clicks!` }</p>;
   }
 
-  onNameInputChange(e: React.FormEvent<HTMLInputElement>) {
+  public onNameInputChange(e: React.FormEvent<HTMLInputElement>) {
     this.setState({ name: e.currentTarget.value });
   }
 
-  onFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+  public onFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const click: Click = {
+    const click: IClick = {
       name: "",
       timeStamp: new Date(Date.now())
-    }
+    };
 
     this.socket.emit("click", {
-      ...click, 
+      ...click,
       name: this.state.name
     });
 
@@ -100,16 +100,16 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
           ...click,
           name: "You"
         }]
-      }
+      };
     });
   }
 
-  render() {
+  public render() {
     return (
       <React.Fragment>
         <form onSubmit={this.onFormSubmit}>
           <div className="row">
-            <input type="text" 
+            <input type="text"
               id = "name-input"
               placeholder="Enter a name..."
               value={ this.state.name }
@@ -130,7 +130,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
           <p>Connection failed!</p>
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 

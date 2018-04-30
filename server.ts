@@ -3,7 +3,7 @@ import * as  express from "express";
 import * as http from "http";
 import * as io from "socket.io";
 
-interface Click {
+interface IClick {
   name: string;
   timeStamp: Date;
 }
@@ -11,7 +11,7 @@ interface Click {
 class GameServer {
   private server: http.Server;
   private socket: io.Server;
-  private state: Click[];
+  private state: IClick[];
 
   constructor() {
     this.setupServer();
@@ -22,8 +22,8 @@ class GameServer {
   /**
    * Setup server
    */
-  setupServer() {
-    const app = express()
+  private setupServer() {
+    const app = express();
     app.use(express.static(path.resolve(__dirname, "wwwroot")));
     this.server = new http.Server(app);
   }
@@ -31,18 +31,18 @@ class GameServer {
   /**
    * Setup initial state.
    */
-  setupState() {
+  private setupState() {
     this.state = [];
   }
 
   /**
    * Setup socket and their events.
    */
-  setupSocketIo() {
+  private setupSocketIo() {
     this.socket = io(this.server);
     this.socket.on("connection", (socket: io.Socket) => {
       socket.emit("connected", this.state);
-      socket.on("click", (data: Click) => {
+      socket.on("click", (data: IClick) => {
         this.state = [...this.state, data];
         socket.broadcast.emit("clicked", this.state);
       });
@@ -54,7 +54,7 @@ class GameServer {
    * @param port The server port
    * @param callBack A callback function called after server is started.
    */
-  public Start(port:number, callBack: () => any) {
+  public Start(port: number, callBack: () => any) {
     this.server.listen(port, callBack);
   }
 }
