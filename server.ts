@@ -43,6 +43,9 @@ class GameServer {
     this.socket.on("connection", (socket: io.Socket) => {
       socket.emit("connected", this.state);
       socket.on("click", (data: IClick) => {
+        if (data.name === "") {
+          data.name = "Somebody";
+        }
         this.state = [...this.state, data];
         socket.broadcast.emit("clicked", this.state);
       });
