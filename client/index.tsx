@@ -5,7 +5,7 @@ import setIntervalOverride from "./setIntervalOverride";
 
 require("./index.scss");
 
-// Overrides the default behaviour of "setInterval" to keep users from writing scripts that
+// Overwrites the default behaviour of "setInterval" to keep users from writing scripts that
 // fx. clicks the button automatically.
 window.setInterval = setIntervalOverride;
 
