@@ -1,9 +1,11 @@
-
 /* global process */
 const merge = require("webpack-merge");
 const commonConfig = require("./webpack.common");
 const UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require("webpack");
+
+
 
 const extractSass = new ExtractTextPlugin({
   filename: "[name].[hash].css",
@@ -28,7 +30,19 @@ module.exports = merge(commonConfig, {
     }]
   },
   plugins: [
-    new UglifyJsWebpackPlugin(),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify("production")
+    }),
+    new UglifyJsWebpackPlugin({
+      sourceMap: true,
+      uglifyOptions: {
+        compress: true,
+        output: {
+          comments: false,
+          beautify: false
+        },
+      }
+    }),
     extractSass
   ]
 });
